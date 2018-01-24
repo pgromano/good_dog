@@ -108,11 +108,14 @@ def _get_topics(document):
     # Fit NMF topic model
     model = NMF(alpha=0.1, l1_ratio=0.75).fit(tf)
 
+    # Set up lemmatizer
+    lemma = WordNetLemmatizer()
+
     # Output topics
     topics = []
     for topic_idx, topic in enumerate(model.components_):
         for i in topic.argsort()[:-N_TOPICS - 1:-1]:
-            topics.append(feature_names[i])
+            topics.append(lemma.lemmatize(feature_names[i]))
     return " ".join(np.unique(topics))
 
 
