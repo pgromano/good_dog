@@ -94,10 +94,13 @@ def _filter(document, NLP):
 
 def _get_topics(document):
     document = document.split()
-    n_features = len(document)
+    if len(document) >= 2:
+        n_features = len(document)
+    else:
+        n_features = 1
 
     # Fit tfidf vectorizer
-    tf_vec = TfidfVectorizer(max_features=int(n_features / 2), stop_words='english').fit(document)
+    tf_vec = TfidfVectorizer(max_features=n_features, stop_words='english').fit(document)
 
     # Convert document to tfidf
     tf = tf_vec.transform(document)
@@ -125,8 +128,14 @@ def _get_score(document, search, NLP):
 
 def preprocess(pet_database, NLP):
     """ Filter and clean words """
+
+    # Preprocessing
     pet_database['Description'] = pet_database['Description'].apply(_filter, args=(NLP, ))
     pet_database['Description'] = pet_database['Description'].apply(_clean)
+
+    # Delete any empty descriptions
+    pet_database['Description'].replace('', np.nan, inplace=True)
+    pet_database.dropna(subset=['Description'], inplace=True)
     return pet_database['Description']
 
 

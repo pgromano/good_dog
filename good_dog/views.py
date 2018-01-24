@@ -18,23 +18,55 @@ def search_input():
 @app.route('/output', methods=['POST'])
 def search_output():
     # Get personality search terms
-    print(flask.request.values)
     search = flask.request.form['search']
+    location = flask.request.form['location']
     gender = flask.request.form['gender']
     breed = flask.request.form['breed']
     age = flask.request.form['age']
-    print(gender)
-    print(breed)
-    print(age)
+    size = flask.request.form['size']
+    print("Looking for a {:s}, {:s} {:s} dog of {:s}-age in {:s}.".format(size, gender, breed, age, location))
+
+    # Check Location
+    if location == "":
+        location = 78705
+
+    # Check Gender
+    if gender == "Gender":
+        gender = None
+    elif gender == "Female":
+        gender = "F"
+    elif gender == "Male":
+        gender = "M"
+
+    # Check Breed
+    if breed == "Breed":
+        breed = None
+
+    # Check Age
+    if age == "Age":
+        age = None
+    elif age == "Puppy":
+        age = "Baby"
+
+    # Check Size
+    if size == "Size":
+        size = None
 
     # Get authentication key and secret tokens
     with open('.auth_token.key', 'r') as f:
         key, secret = f.read().splitlines()
 
+    query = {'animal': 'dog',
+             'max_results': 100,
+             'age': age,
+             'breed': breed,
+             'location': location,
+             'sex': gender,
+             'size': size}
+
     # Initialize PetfinderClient to Query API
     # offset = np.random.randint(0, 250)
-    pfclient = PetfinderClient(key, secret,
-                                max_results=9, animal='dog', location='97403')
+    pfclient = PetfinderClient(key, secret, **query)
 
     # Prepare pandas dataframe
     columns = ["Age", "Breed", "Description",
@@ -71,7 +103,12 @@ def search_output():
 
     # Preprocess pet-descriptions from query
     pet_database['Description'] = preprocess.preprocess(pet_database, NLP)
-    pet_database['Topics'] = preprocess.get_topics(pet_database)
-    pet_database['Score'] = preprocess.get_score(search, pet_database, NLP)
-    pet_database.sort_values('Score', ascending=False, inplace=True)
-    return flask.render_template("output.html", search=search, db=pet_database)
+
+    # Process pet descriptions
+    if len(pet_database) > 8:
+        pet_database['Topics'] = preprocess.get_topics(pet_database)
+        pet_database['Score'] = preprocess.get_score(search, pet_database, NLP)
+        pet_database.sort_values('Score', ascending=False, inplace=True)
+        return flask.render_template("output.html", search=search, db=pet_database.iloc[:9], location=str(location))
+    else:
+        return flask.render_template("too_few_dogs.html", search=search, location=str(location))
