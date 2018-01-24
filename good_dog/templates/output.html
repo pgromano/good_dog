@@ -26,14 +26,14 @@
       <div class="container">
         <h1>
           Who's a Good Dog?
-          <img src="../static/icons/dog_logo.svg" width="5%" class="text-right" alt="...">
+          <img src="../static/icons/dog_logo.svg" width="5%" class="text-right">
         </h1>
     </div>
 
 
     <div class="container">
       <div class="container" style="background:#5DD9C1">
-          <p class="lead"> You searched for "<b>{{search}}</b>" dogs.</p>
+          <p class="lead"> You searched for "<b>{{search}}</b>" dogs in {{location}}</p>
       </div>
 
       <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
@@ -44,61 +44,142 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-4">
-          <img src={{ db['Photos'].iloc[0] }} width="100px" class="text-right">
-          <h3> {{db['Name'].iloc[0]}}, Score: {{db['Score'].iloc[0] | round | int}}%</h3>
-          <p> <b> Topics: {{db['Topics'].iloc[0]}}</b> <br><br> {{db['Raw Description'].iloc[0][:250]}} </p>
+          <h3> {{db['Name'].iloc[0]}}</h3>
+          <div style="width: 200px; height: 200px; overflow: hidden">
+            <img src={{ db['Photos'].iloc[0] }} width="200px" class="rounded text-right">
+          </div>
+          <h4>
+            Score: {{db['Score'].iloc[0] | round | int}}%,
+            <a href={{ "https://www.petfinder.com/petdetail/" + db.index[0] }} style="color:#5DD9C1"> <b>Adopt!</b></a>
+          </h4>
+          <p>
+            <b>Topics</b>: {{", ".join(db['Topics'].iloc[0].split())}}
+          <!-- <br> {{db['Raw Description'].iloc[0][:250]}} -->
+          </p>
         </div>
 
         <div class="col-lg-4">
-          <img src={{ db['Photos'].iloc[1] }} width="100px" class="text-right">
-          <h3> {{db['Name'].iloc[1]}}, Score: {{db['Score'].iloc[1] | round | int}}%</h3>
-          <p> <b> Topics: {{db['Topics'].iloc[1]}}</b> <br><br> {{db['Raw Description'].iloc[1][:250]}} </p>
+          <h3> {{db['Name'].iloc[1]}}</h3>
+          <div style="width: 200px; height: 200px; overflow: hidden">
+            <img src={{ db['Photos'].iloc[1] }} width="200px" class="rounded text-right">
+          </div>
+          <h4>
+            Score: {{db['Score'].iloc[1] | round | int}}%,
+            <a href={{ "https://www.petfinder.com/petdetail/" + db.index[1] }} style="color:#5DD9C1"> <b>Adopt!</b></a>
+          </h4>
+          <p>
+            <b>Topics</b>: {{", ".join(db['Topics'].iloc[1].split())}}
+          <!-- <br> {{db['Raw Description'].iloc[1][:250]}} -->
+          </p>
         </div>
 
         <div class="col-lg-4">
-          <img src={{ db['Photos'].iloc[2] }} width="100px" class="text-right">
-          <h3> {{db['Name'].iloc[2]}}, Score: {{db['Score'].iloc[2] | round | int}}%</h3>
-          <p> <b> Topics: {{db['Topics'].iloc[2]}}</b> <br><br> {{db['Raw Description'].iloc[2][:250]}} </p>
+          <h3> {{db['Name'].iloc[2]}}</h3>
+          <div style="width: 200px; height: 200px; overflow: hidden">
+            <img src={{ db['Photos'].iloc[2] }} width="200px" class="rounded text-right">
+          </div>
+          <h4>
+            Score: {{db['Score'].iloc[2] | round | int}}%,
+            <a href={{ "https://www.petfinder.com/petdetail/" + db.index[2] }} style="color:#5DD9C1"> <b>Adopt!</b></a>
+          </h4>
+          <p>
+            <b>Topics</b>: {{", ".join(db['Topics'].iloc[2].split())}}
+          <!-- <br> {{db['Raw Description'].iloc[2][:250]}} -->
+          </p>
         </div>
       </div>
 
       <div class="row">
         <div class="col-lg-4">
-          <img src={{ db['Photos'].iloc[3] }} width="100px" class="text-right">
-          <h3> {{db['Name'].iloc[3]}}, Score: {{db['Score'].iloc[3] | round | int}}%</h3>
-          <p> <b> Topics: {{db['Topics'].iloc[3]}}</b> <br><br> {{db['Raw Description'].iloc[3][:250]}} </p>
+          <h3> {{db['Name'].iloc[3]}}</h3>
+          <div style="width: 200px; height: 200px; overflow: hidden">
+            <img src={{ db['Photos'].iloc[3] }} width="200px" class="rounded text-right">
+          </div>
+          <h4>
+            Score: {{db['Score'].iloc[3] | round | int}}%,
+            <a href={{ "https://www.petfinder.com/petdetail/" + db.index[3] }} style="color:#5DD9C1"> <b>Adopt!</b></a>
+          </h4>
+          <p>
+            <b>Topics</b>: {{", ".join(db['Topics'].iloc[3].split())}}
+          <!-- <br> {{db['Raw Description'].iloc[3][:250]}} -->
+          </p>
         </div>
 
         <div class="col-lg-4">
-          <img src={{ db['Photos'].iloc[4] }} width="100px" class="text-right">
-          <h3> {{db['Name'].iloc[4]}}, Score: {{db['Score'].iloc[4] | round | int}}%</h3>
-          <p> <b> Topics: {{db['Topics'].iloc[4]}}</b> <br><br> {{db['Raw Description'].iloc[4][:250]}} </p>
+          <h3> {{db['Name'].iloc[4]}}</h3>
+          <div style="width: 200px; height: 200px; overflow: hidden">
+            <img src={{ db['Photos'].iloc[4] }} width="200px" class="rounded text-right">
+          </div>
+          <h4>
+            Score: {{db['Score'].iloc[4] | round | int}}%,
+            <a href={{ "https://www.petfinder.com/petdetail/" + db.index[4] }} style="color:#5DD9C1"> <b>Adopt!</b></a>
+          </h4>
+          <p>
+            <b>Topics</b>: {{", ".join(db['Topics'].iloc[4].split())}}
+          <!-- <br> {{db['Raw Description'].iloc[4][:250]}} -->
+          </p>
         </div>
 
         <div class="col-lg-4">
-          <img src={{ db['Photos'].iloc[5] }} width="100px" class="text-right">
-          <h3> {{db['Name'].iloc[5]}}, Score: {{db['Score'].iloc[5] | round | int}}%</h3>
-          <p> <b> Topics: {{db['Topics'].iloc[5]}}</b> <br><br> {{db['Raw Description'].iloc[5][:250]}} </p>
+          <h3> {{db['Name'].iloc[5]}}</h3>
+          <div style="width: 200px; height: 200px; overflow: hidden">
+            <img src={{ db['Photos'].iloc[5] }} width="200px" class="rounded text-right">
+          </div>
+          <h4>
+            Score: {{db['Score'].iloc[5] | round | int}}%,
+            <a href={{ "https://www.petfinder.com/petdetail/" + db.index[5] }} style="color:#5DD9C1"> <b>Adopt!</b></a>
+          </h4>
+          <p>
+            <b>Topics</b>: {{", ".join(db['Topics'].iloc[5].split())}}
+          <!-- <br> {{db['Raw Description'].iloc[5][:250]}} -->
+          </p>
         </div>
       </div>
 
       <div class="row">
         <div class="col-lg-4">
-          <img src={{ db['Photos'].iloc[6] }} width="100px" class="text-right">
-          <h3> {{db['Name'].iloc[6]}}, Score: {{db['Score'].iloc[6] | round | int}}%</h3>
-          <p> <b> Topics: {{db['Topics'].iloc[6]}}</b> <br><br> {{db['Raw Description'].iloc[6][:250]}} </p>
+          <h3> {{db['Name'].iloc[6]}}</h3>
+          <div style="width: 200px; height: 200px; overflow: hidden">
+            <img src={{ db['Photos'].iloc[6] }} width="200px" class="rounded text-right">
+          </div>
+          <h4>
+            Score: {{db['Score'].iloc[6] | round | int}}%,
+            <a href={{ "https://www.petfinder.com/petdetail/" + db.index[6] }} style="color:#5DD9C1"> <b>Adopt!</b></a>
+          </h4>
+          <p>
+            <b>Topics</b>: {{", ".join(db['Topics'].iloc[6].split())}}
+          <!-- <br> {{db['Raw Description'].iloc[6][:250]}} -->
+          </p>
         </div>
 
         <div class="col-lg-4">
-          <img src={{ db['Photos'].iloc[7] }} width="100px" class="text-right">
-          <h3> {{db['Name'].iloc[7]}}, Score: {{db['Score'].iloc[7] | round | int}}%</h3>
-          <p> <b> Topics: {{db['Topics'].iloc[7]}}</b> <br><br> {{db['Raw Description'].iloc[7][:250]}} </p>
+          <h3> {{db['Name'].iloc[7]}}</h3>
+          <div style="width: 200px; height: 200px; overflow: hidden">
+            <img src={{ db['Photos'].iloc[7] }} width="200px" class="rounded text-right">
+          </div>
+          <h4>
+            Score: {{db['Score'].iloc[7] | round | int}}%,
+            <a href={{ "https://www.petfinder.com/petdetail/" + db.index[7] }} style="color:#5DD9C1"> <b>Adopt!</b></a>
+          </h4>
+          <p>
+            <b>Topics</b>: {{", ".join(db['Topics'].iloc[7].split())}}
+          <!-- <br> {{db['Raw Description'].iloc[7][:250]}} -->
+          </p>
         </div>
 
         <div class="col-lg-4">
-          <img src={{ db['Photos'].iloc[8] }} width="100px" class="text-right">
-          <h3> {{db['Name'].iloc[8]}}, Score: {{db['Score'].iloc[8] | round | int}}%</h3>
-          <p> <b> Topics: {{db['Topics'].iloc[8]}}</b> <br><br> {{db['Raw Description'].iloc[8][:250]}} </p>
+          <h3> {{db['Name'].iloc[8]}}</h3>
+          <div style="width: 200px; height: 200px; overflow: hidden">
+            <img src={{ db['Photos'].iloc[8] }} width="200px" class="rounded text-right">
+          </div>
+          <h4>
+            Score: {{db['Score'].iloc[8] | round | int}}%,
+            <a href={{ "https://www.petfinder.com/petdetail/" + db.index[8] }} style="color:#5DD9C1"> <b>Adopt!</b></a>
+          </h4>
+          <p>
+            <b>Topics</b>: {{", ".join(db['Topics'].iloc[8].split())}}
+          <!-- <br> {{db['Raw Description'].iloc[8][:250]}} -->
+          </p>
         </div>
       </div>
     </div>
