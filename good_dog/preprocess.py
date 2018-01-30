@@ -3,7 +3,6 @@ import numpy as np
 import string
 
 import nltk
-from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 
 from sklearn.externals import joblib
@@ -19,7 +18,12 @@ from sumy.nlp.stemmers import Stemmer
 N_TOPICS = 10
 LANGUAGE = "english"
 SENTENCES_COUNT = 2
-STOP_WORDS = set(stopwords.words('english'))
+try:
+    from nltk.corpus import stopwords
+    STOP_WORDS = set(stopwords.words(LANGUAGE))
+except:
+    nltk.download('stopwords')
+    STOP_WORDS = set(stopwords.words(LANGUAGE))
 
 # Ignore adoption words
 STOP_WORDS.add('foster')
