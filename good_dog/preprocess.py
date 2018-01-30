@@ -1,17 +1,24 @@
-import spacy
 import pandas as pd
 import numpy as np
-import nltk
-from nltk.corpus import stopwords, wordnet
-from nltk.stem.wordnet import WordNetLemmatizer
 import string
+
+import nltk
+from nltk.corpus import stopwords
+from nltk.stem import PorterStemmer
+
 from sklearn.externals import joblib
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.decomposition import NMF
 
+from sumy.parsers.plaintext import PlaintextParser
+from sumy.nlp.tokenizers import Tokenizer
+from sumy.summarizers.luhn import LuhnSummarizer as Summarizer
+from sumy.nlp.stemmers import Stemmer
 
 # Set global parameters
-N_TOPICS = 5
+N_TOPICS = 10
+LANGUAGE = "english"
+SENTENCES_COUNT = 2
 STOP_WORDS = set(stopwords.words('english'))
 
 # Ignore adoption words
@@ -59,19 +66,19 @@ SENT_CLF = joblib.load('good_dog/static/models/nb_sentence_classifier.pkl')
 
 def _clean(document):
     # Tokenize
-    clean_document = nltk.word_tokenize(document)
+    words = nltk.word_tokenize(document)
 
     # Remove abstraction
-    clean_document = [word.lower() for word in clean_document if word.lower() not in STOP_WORDS]
+    clean_document = [word.lower() for word in words if word.lower() not in STOP_WORDS]
     clean_document = [word for word in clean_document if word not in PUNCTUATIONS]
 
-    # Lemmatize
-    lemma = WordNetLemmatizer()
-    clean_document = " ".join([lemma.lemmatize(word) for word in clean_document])
+    # Stem
+    stemmer = PorterStemmer()
+    clean_document = " ".join([stemmer.stem(word) for word in clean_document])
     return clean_document
 
 
-def _filter(document, NLP):
+def _filter(document):
     """ Tool to remove junk aspects from the pet document
 
     Arguments
@@ -86,9 +93,9 @@ def _filter(document, NLP):
         as a "dog document".
     """
     filtered_document = " "
-    for sentence in NLP(document).doc.sents:
-        if SENT_CLF.predict([sentence.text]) == 'D':
-            filtered_document += sentence.text
+    for sentence in nltk.sent_tokenize(document):
+        if SENT_CLF.predict([sentence]) == 'D':
+            filtered_document += sentence
     return filtered_document
 
 
@@ -111,26 +118,37 @@ def _get_topics(document):
     # Fit NMF topic model
     model = NMF(alpha=0.1, l1_ratio=0.75).fit(tf)
 
-    # Set up lemmatizer
-    lemma = WordNetLemmatizer()
-
     # Output topics
     topics = []
     for topic_idx, topic in enumerate(model.components_):
         for i in topic.argsort()[:-N_TOPICS - 1:-1]:
-            topics.append(lemma.lemmatize(feature_names[i]))
+            topics.append(feature_names[i])
     return " ".join(np.unique(topics))
+
+
+def _get_summary(document):
+    parser = PlaintextParser.from_string(document, Tokenizer(LANGUAGE))
+    stemmer = Stemmer(LANGUAGE)
+
+    summarizer = Summarizer(stemmer)
+    summarizer.stop_words = STOP_WORDS
+
+    summary = " "
+    for sentence in summarizer(parser.document, SENTENCES_COUNT):
+        summary += " ".join(sentence.words)
+
+    return summary
 
 
 def _get_score(document, search, NLP):
     return 100 * NLP(search).similarity(NLP(document))
 
 
-def preprocess(pet_database, NLP):
+def preprocess(pet_database):
     """ Filter and clean words """
 
     # Preprocessing
-    pet_database['Description'] = pet_database['Description'].apply(_filter, args=(NLP, ))
+    pet_database['Description'] = pet_database['Description'].apply(_filter)
     pet_database['Description'] = pet_database['Description'].apply(_clean)
 
     # Delete any empty descriptions
@@ -140,9 +158,13 @@ def preprocess(pet_database, NLP):
 
 
 def get_topics(pet_database):
-    return pet_database['Description'].apply(_get_topics)
+    return pet_database['Summary'].apply(_get_topics)
+
+
+def get_summary(pet_database):
+    return pet_database['Description'].apply(_get_summary)
 
 
 def get_score(search, pet_database, NLP):
     """ Cosine similarity of search and pet-description word vectors """
-    return pet_database['Topics'].apply(_get_score, args=(search, NLP))
+    return pet_database['Summary'].apply(_get_score, args=(search, NLP))

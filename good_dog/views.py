@@ -57,7 +57,7 @@ def search_output():
         key, secret = f.read().splitlines()
 
     query = {'animal': 'dog',
-             'max_results': 100,
+             'max_results': 50,
              'age': age,
              'breed': breed,
              'location': location,
@@ -102,10 +102,11 @@ def search_output():
     pet_database['Raw Description'] = pet_database['Description']
 
     # Preprocess pet-descriptions from query
-    pet_database['Description'] = preprocess.preprocess(pet_database, NLP)
+    pet_database['Description'] = preprocess.preprocess(pet_database)
 
     # Process pet descriptions
     if len(pet_database) > 8:
+        pet_database['Summary'] = preprocess.get_summary(pet_database)
         pet_database['Topics'] = preprocess.get_topics(pet_database)
         pet_database['Score'] = preprocess.get_score(search, pet_database, NLP)
         pet_database.sort_values('Score', ascending=False, inplace=True)
