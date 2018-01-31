@@ -49,11 +49,11 @@
             <img src={{ db['Photos'].iloc[0] }} width="200px" class="rounded text-right">
           </div>
           <h4>
-            Score: {{db['Score'].iloc[0] | round | int}}%,
+            Match: {{db['Score'].iloc[0] | round | int}}%,
             <a href={{ "https://www.petfinder.com/petdetail/" + db.index[0] }} style="color:#5DD9C1"> <b>Adopt!</b></a>
           </h4>
           <p>
-            <b>Traits</b>: {{", ".join(db['Topics'].iloc[0].split())}}
+            <b>Summary</b>: {{db['Topics'].iloc[0][:150]}}
           <!-- <br> {{db['Raw Description'].iloc[0][:250]}} -->
           </p>
         </div>
@@ -64,11 +64,11 @@
             <img src={{ db['Photos'].iloc[1] }} width="200px" class="rounded text-right">
           </div>
           <h4>
-            Score: {{db['Score'].iloc[1] | round | int}}%,
+            Match: {{db['Score'].iloc[1] | round | int}}%,
             <a href={{ "https://www.petfinder.com/petdetail/" + db.index[1] }} style="color:#5DD9C1"> <b>Adopt!</b></a>
           </h4>
           <p>
-            <b>Traits</b>: {{", ".join(db['Topics'].iloc[1].split())}}
+            <b>Summary</b>: {{db['Topics'].iloc[1][:150]}}
           <!-- <br> {{db['Raw Description'].iloc[1][:250]}} -->
           </p>
         </div>
@@ -79,11 +79,11 @@
             <img src={{ db['Photos'].iloc[2] }} width="200px" class="rounded text-right">
           </div>
           <h4>
-            Score: {{db['Score'].iloc[2] | round | int}}%,
+            Match: {{db['Score'].iloc[2] | round | int}}%,
             <a href={{ "https://www.petfinder.com/petdetail/" + db.index[2] }} style="color:#5DD9C1"> <b>Adopt!</b></a>
           </h4>
           <p>
-            <b>Traits</b>: {{", ".join(db['Topics'].iloc[2].split())}}
+            <b>Summary</b>: {{db['Topics'].iloc[2][:150]}}
           <!-- <br> {{db['Raw Description'].iloc[2][:250]}} -->
           </p>
         </div>
@@ -96,11 +96,11 @@
             <img src={{ db['Photos'].iloc[3] }} width="200px" class="rounded text-right">
           </div>
           <h4>
-            Score: {{db['Score'].iloc[3] | round | int}}%,
+            Match: {{db['Score'].iloc[3] | round | int}}%,
             <a href={{ "https://www.petfinder.com/petdetail/" + db.index[3] }} style="color:#5DD9C1"> <b>Adopt!</b></a>
           </h4>
           <p>
-            <b>Traits</b>: {{", ".join(db['Topics'].iloc[3].split())}}
+            <b>Summary</b>: {{db['Topics'].iloc[3][:150]}}
           <!-- <br> {{db['Raw Description'].iloc[3][:250]}} -->
           </p>
         </div>
@@ -111,11 +111,11 @@
             <img src={{ db['Photos'].iloc[4] }} width="200px" class="rounded text-right">
           </div>
           <h4>
-            Score: {{db['Score'].iloc[4] | round | int}}%,
+            Match: {{db['Score'].iloc[4] | round | int}}%,
             <a href={{ "https://www.petfinder.com/petdetail/" + db.index[4] }} style="color:#5DD9C1"> <b>Adopt!</b></a>
           </h4>
           <p>
-            <b>Traits</b>: {{", ".join(db['Topics'].iloc[4].split())}}
+            <b>Summary</b>: {{db['Topics'].iloc[4][:150]}}
           <!-- <br> {{db['Raw Description'].iloc[4][:250]}} -->
           </p>
         </div>
@@ -126,11 +126,11 @@
             <img src={{ db['Photos'].iloc[5] }} width="200px" class="rounded text-right">
           </div>
           <h4>
-            Score: {{db['Score'].iloc[5] | round | int}}%,
+            Match: {{db['Score'].iloc[5] | round | int}}%,
             <a href={{ "https://www.petfinder.com/petdetail/" + db.index[5] }} style="color:#5DD9C1"> <b>Adopt!</b></a>
           </h4>
           <p>
-            <b>Traits</b>: {{", ".join(db['Topics'].iloc[5].split())}}
+            <b>Summary</b>: {{db['Topics'].iloc[5][:150]}}
           <!-- <br> {{db['Raw Description'].iloc[5][:250]}} -->
           </p>
         </div>
@@ -143,11 +143,11 @@
             <img src={{ db['Photos'].iloc[6] }} width="200px" class="rounded text-right">
           </div>
           <h4>
-            Score: {{db['Score'].iloc[6] | round | int}}%,
+            Match: {{db['Score'].iloc[6] | round | int}}%,
             <a href={{ "https://www.petfinder.com/petdetail/" + db.index[6] }} style="color:#5DD9C1"> <b>Adopt!</b></a>
           </h4>
           <p>
-            <b>Traits</b>: {{", ".join(db['Topics'].iloc[6].split())}}
+            <b>Summary</b>: {{db['Topics'].iloc[6][:150]}}
           <!-- <br> {{db['Raw Description'].iloc[6][:250]}} -->
           </p>
         </div>
@@ -158,11 +158,11 @@
             <img src={{ db['Photos'].iloc[7] }} width="200px" class="rounded text-right">
           </div>
           <h4>
-            Score: {{db['Score'].iloc[7] | round | int}}%,
+            Match: {{db['Score'].iloc[7] | round | int}}%,
             <a href={{ "https://www.petfinder.com/petdetail/" + db.index[7] }} style="color:#5DD9C1"> <b>Adopt!</b></a>
           </h4>
           <p>
-            <b>Traits</b>: {{", ".join(db['Topics'].iloc[7].split())}}
+            <b>Summary</b>: {{db['Topics'].iloc[7][:150]}}
           <!-- <br> {{db['Raw Description'].iloc[7][:250]}} -->
           </p>
         </div>
@@ -173,11 +173,11 @@
             <img src={{ db['Photos'].iloc[8] }} width="200px" class="rounded text-right">
           </div>
           <h4>
-            Score: {{db['Score'].iloc[8] | round | int}}%,
+            Match: {{db['Score'].iloc[8] | round | int}}%,
             <a href={{ "https://www.petfinder.com/petdetail/" + db.index[8] }} style="color:#5DD9C1"> <b>Adopt!</b></a>
           </h4>
           <p>
-            <b>Traits</b>: {{", ".join(db['Topics'].iloc[8].split())}}
+            <b>Summary</b>: {{db['Topics'].iloc[8][:150]}}
           <!-- <br> {{db['Raw Description'].iloc[8][:250]}} -->
           </p>
         </div>

@@ -99,35 +99,46 @@ def _filter(document):
     filtered_document = " "
     for sentence in nltk.sent_tokenize(document):
         if SENT_CLF.predict([sentence]) == 'D':
-            filtered_document += sentence
+            filtered_document += sentence + "."
     return filtered_document
 
 
 def _get_topics(document):
-    document = document.split()
-    if len(document) >= 2:
-        n_features = len(document)
-    else:
-        n_features = 1
+    #document = document.split()
+    #if len(document) >= 2:
+    #    n_features = len(document)
+    #else:
+    #    n_features = 1
 
-    # Fit tfidf vectorizer
-    tf_vec = TfidfVectorizer(max_features=n_features, stop_words='english').fit(document)
+    ## Fit tfidf vectorizer
+    #tf_vec = TfidfVectorizer(max_features=n_features, stop_words='english').fit(document)
 
-    # Convert document to tfidf
-    tf = tf_vec.transform(document)
+    ## Convert document to tfidf
+    #tf = tf_vec.transform(document)
 
-    # Get feature names
-    feature_names = tf_vec.get_feature_names()
+    ## Get feature names
+    #feature_names = tf_vec.get_feature_names()
 
-    # Fit NMF topic model
-    model = NMF(alpha=0.1, l1_ratio=0.75).fit(tf)
+    ## Fit NMF topic model
+    #model = NMF(alpha=0.1, l1_ratio=0.75).fit(tf)
 
-    # Output topics
-    topics = []
-    for topic_idx, topic in enumerate(model.components_):
-        for i in topic.argsort()[:-N_TOPICS - 1:-1]:
-            topics.append(feature_names[i])
-    return " ".join(np.unique(topics))
+    ## Output topics
+    #topics = []
+    #for topic_idx, topic in enumerate(model.components_):
+    #    for i in topic.argsort()[:-N_TOPICS - 1:-1]:
+    #        topics.append(feature_names[i])
+    #return " ".join(np.unique(topics))
+
+    document = _filter(document)
+    parser = PlaintextParser.from_string(document.lower(), Tokenizer(LANGUAGE))
+    summarizer = Summarizer()
+    summarizer.stop_words = STOP_WORDS
+
+    summary = " "
+    for sentence in summarizer(parser.document, SENTENCES_COUNT):
+        summary += " ".join(sentence.words) + "."
+
+    return summary
 
 
 def _get_summary(document):
@@ -162,7 +173,7 @@ def preprocess(pet_database):
 
 
 def get_topics(pet_database):
-    return pet_database['Summary'].apply(_get_topics)
+    return pet_database['Raw Description'].apply(_get_topics)
 
 
 def get_summary(pet_database):
