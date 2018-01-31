@@ -1400,7 +1400,12 @@ img {
 }
 
 .img-circle {
-    border-radius: 50%
+    border-radius: 50% 50%;
+    margin-top: -10%;
+    padding-left: -10px;
+    width: 175px;
+    height: 175px;
+    overflow: hidden;
 }
 
 hr {
@@ -1408,6 +1413,17 @@ hr {
     margin-bottom: 20px;
     border: 0;
     border-top: 1px solid #eee
+}
+
+.ratio {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    height: 0;
+    padding-bottom: 100%;
+    position: relative;
+    width: 100%;
 }
 
 .sr-only {
@@ -1812,7 +1828,7 @@ pre code {
     padding-right: 15px;
     padding-left: 15px;
     margin-right: auto;
-    margin-left: auto
+    margin-left: auto;
 }
 
 @media (min-width:768px) {
@@ -2781,15 +2797,7 @@ output {
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6)
 }
 
-.form-control:hover{
-    color: #fff;
-    background-color: #B2F7EF
-}
 
-.form-control:active{
-    color: #fff;
-    background-color: #5DD9C1
-}
 
 .form-control::-moz-placeholder {
     color: #999;
@@ -3693,19 +3701,6 @@ tbody.collapse.in {
     line-height: 1.42857143;
     color: #333;
     white-space: nowrap
-}
-
-.dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover {
-    color: #262626;
-    text-decoration: none;
-    background-color: #B2F7EF;
-}
-
-.dropdown-menu>.active>a, .dropdown-menu>.active>a:focus, .dropdown-menu>.active>a:hover {
-    color: #fff;
-    text-decoration: none;
-    background-color: #5DD9C1;
-    outline: 0
 }
 
 .dropdown-menu>.disabled>a, .dropdown-menu>.disabled>a:focus, .dropdown-menu>.disabled>a:hover {

@@ -11,12 +11,23 @@ import spacy
 NLP = spacy.load('en_core_web_lg')
 
 @app.route('/',)
-@app.route('/input', methods=['POST'])
-def search_input():
+def homepage():
+    return flask.render_template("homepage.html")
+
+@app.route('/skills',)
+def skills():
+    return flask.render_template("skills.html")
+
+@app.route('/education',)
+def education():
+    return flask.render_template("education.html")
+
+@app.route('/good_dog', methods=['GET', 'POST'])
+def good_dog_search():
     return flask.render_template("input.html")
 
 @app.route('/output', methods=['POST'])
-def search_output():
+def good_dog_results():
     # Get personality search terms
     search = flask.request.form['search']
     location = flask.request.form['location']
