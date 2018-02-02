@@ -40,6 +40,8 @@ def good_dog_results():
     # Check Location
     if location == "":
         location = 78705
+    elif location is None:
+        location = 78705
 
     # Check Gender
     if gender == "Gender":
