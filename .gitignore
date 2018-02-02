@@ -1,3 +1,4 @@
+*.pem
 .auth_token.key
 __pycache__
 .ipynb_checkpoints
