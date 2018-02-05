@@ -24,9 +24,13 @@ def education():
 
 @app.route('/good_dog', methods=['GET', 'POST'])
 def good_dog_search():
-    return flask.render_template("input.html")
+    return flask.render_template("good_dog_homepage.html")
 
-@app.route('/output', methods=['POST'])
+@app.route('/good_dog/about', methods=['GET', 'POST'])
+def good_dog_about():
+    return flask.render_template("good_dog_about.html")
+
+@app.route('/good_dog/results', methods=['POST'])
 def good_dog_results():
     # Get personality search terms
     search = flask.request.form['search']
@@ -123,6 +127,6 @@ def good_dog_results():
         pet_database['Topics'] = preprocess.get_topics(pet_database)
         pet_database['Score'] = preprocess.get_score(search, pet_database, NLP)
         pet_database.sort_values('Score', ascending=False, inplace=True)
-        return flask.render_template("output.html", search=search, db=pet_database.iloc[:9], location=str(location))
+        return flask.render_template("good_dog_results.html", search=search, db=pet_database.iloc[:9], location=str(location))
     else:
-        return flask.render_template("too_few_dogs.html", search=search, location=str(location))
+        return flask.render_template("good_dog_404.html", search=search, location=str(location))
